@@ -26,6 +26,7 @@ class ExtractConfig:
     sample_fps: float = 4.0
     roi_scan_seconds: int = 60
     search_vertical_band: tuple[float, float] = (0.55, 0.98)
+    ocr_languages: tuple[str, ...] = ("he", "en")
     phash_hamming_threshold: int = 10
     min_ms_between_ocr: int = 160
     text_similarity_threshold: float = 0.82
@@ -152,7 +153,7 @@ def extract_subtitles(
     """Extract subtitles from video and write to SRT."""
     debug_dir = _prepare_debug_dir(config)
     _log(log_cb, "Loading OCR backend...")
-    ocr = EasyOCROCRBackend(gpu=True)
+    ocr = EasyOCROCRBackend(gpu=True, languages=list(config.ocr_languages))
 
     _log(log_cb, "Sampling frames for ROI detection...")
     frames_for_roi = list(sample_frames(video_path, config.sample_fps, config.roi_scan_seconds))
@@ -302,6 +303,7 @@ def load_config(path: str) -> ExtractConfig:
         sample_fps=float(data.get("sample_fps", 4.0)),
         roi_scan_seconds=int(data.get("roi_scan_seconds", 60)),
         search_vertical_band=tuple(data.get("search_vertical_band", [0.55, 0.98])),
+        ocr_languages=tuple(data.get("ocr_languages", ["he", "en"])),
         phash_hamming_threshold=int(data.get("phash_hamming_threshold", 10)),
         min_ms_between_ocr=int(data.get("min_ms_between_ocr", 160)),
         text_similarity_threshold=float(data.get("text_similarity_threshold", 0.82)),

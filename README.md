@@ -47,6 +47,7 @@ Edit `config.yaml` to tune thresholds:
 - `sample_fps`: frames per second to sample for OCR.
 - `roi_scan_seconds`: duration used to auto-detect ROI.
 - `search_vertical_band`: relative vertical band to search for subtitles.
+- `ocr_languages`: language list for EasyOCR (default `["he", "en"]`).
 - `phash_hamming_threshold`: perceptual hash change required to OCR.
 - `min_ms_between_ocr`: minimum time between OCR calls.
 - `text_similarity_threshold`: merging threshold for text similarity.
@@ -62,6 +63,7 @@ When debug mode is enabled:
 
 ## Troubleshooting
 - If you see a Windows error like `charmap codec can't encode character`, ensure you are launching via `gui.py` or `extract.py` which now force UTF-8 stdout/stderr.
+- If you see `({'he'}, 'is not supported')`, upgrade EasyOCR to 1.7.1+ or set `ocr_languages` to an available list in `config.yaml`.
 - If EasyOCR is slow on CPU, ensure CUDA is installed and `torch.cuda.is_available()` returns true.
 - If no subtitles are detected, try manual ROI selection or adjust `search_vertical_band` and `phash_hamming_threshold`.
 - If FFmpeg is unavailable, OpenCV fallback will be used automatically.

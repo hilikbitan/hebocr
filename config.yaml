@@ -1,6 +1,7 @@
 sample_fps: 4.0
 roi_scan_seconds: 60
 search_vertical_band: [0.55, 0.98]
+ocr_languages: ["he", "en"]
 phash_hamming_threshold: 10
 min_ms_between_ocr: 160
 text_similarity_threshold: 0.82
