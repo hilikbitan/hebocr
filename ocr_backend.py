@@ -20,8 +20,10 @@ class OCRBackend:
 
 class EasyOCROCRBackend(OCRBackend):
     def __init__(self, gpu: bool = True) -> None:
+        from utils import configure_utf8_stdio
         import easyocr
 
+        configure_utf8_stdio()
         self.reader = easyocr.Reader(["he", "en"], gpu=gpu)
 
     def readtext(self, image: np.ndarray) -> List[OCRResult]:

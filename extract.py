@@ -17,7 +17,8 @@ from preprocess import preprocess_subtitle_crop
 from roi import auto_detect_roi, manual_select_roi
 from srt_writer import write_srt
 from utils import (CancelledError, LogCallback, ProgressCallback, SubtitleSegment,
-                   ensure_dir, log_csv, raise_if_cancelled, timestamp_ms)
+                   configure_utf8_stdio, ensure_dir, log_csv, raise_if_cancelled,
+                   timestamp_ms)
 
 
 @dataclasses.dataclass
@@ -329,6 +330,7 @@ def run_cli() -> None:
     parser.add_argument("--manual-roi", action="store_true")
     args = parser.parse_args()
 
+    configure_utf8_stdio()
     config = load_config(args.config)
     extract_subtitles(args.video, args.output, config, manual_roi=args.manual_roi)
 

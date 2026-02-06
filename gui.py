@@ -8,7 +8,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
 from extract import ExtractConfig, extract_subtitles, load_config, save_config
-from utils import CancelledError
+from utils import CancelledError, configure_utf8_stdio
 
 
 class App(tk.Tk):
@@ -169,5 +169,6 @@ class App(tk.Tk):
 
 
 if __name__ == "__main__":
+    configure_utf8_stdio()
     app = App()
     app.mainloop()

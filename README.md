@@ -61,6 +61,7 @@ When debug mode is enabled:
 - `decisions.csv` logs each OCR decision.
 
 ## Troubleshooting
+- If you see a Windows error like `charmap codec can't encode character`, ensure you are launching via `gui.py` or `extract.py` which now force UTF-8 stdout/stderr.
 - If EasyOCR is slow on CPU, ensure CUDA is installed and `torch.cuda.is_available()` returns true.
 - If no subtitles are detected, try manual ROI selection or adjust `search_vertical_band` and `phash_hamming_threshold`.
 - If FFmpeg is unavailable, OpenCV fallback will be used automatically.

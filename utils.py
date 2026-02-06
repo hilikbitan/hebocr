@@ -80,3 +80,17 @@ def raise_if_cancelled(cancel_event: Optional[threading.Event]) -> None:
 
 ProgressCallback = Callable[[float, str], None]
 LogCallback = Callable[[str], None]
+
+
+def configure_utf8_stdio() -> None:
+    """Force UTF-8 stdout/stderr to avoid Windows console encoding issues."""
+    try:
+        import sys
+
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        if hasattr(sys.stderr, "reconfigure"):
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        # Best-effort: do not fail if reconfiguration is unavailable.
+        return
